@@ -1,6 +1,6 @@
 param(
   [string]$FontPath = "",
-  [switch]$InstallNeovim,
+  [switch]$SkipNeovim,
   [switch]$SkipZoxide
 )
 
@@ -31,7 +31,7 @@ function Install-OhMyPosh {
 }
 
 function Install-Neovim {
-  if (-not $InstallNeovim) {
+  if ($SkipNeovim) {
     return
   }
 

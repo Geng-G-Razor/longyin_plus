@@ -4,6 +4,7 @@
 
 - 安装 Oh My Posh
 - 安装 zoxide
+- 安装 Neovim
 - 安装已经下载好的 Nerd Font
 - 配置 PowerShell `$PROFILE`
 - 添加常用 Git alias
@@ -26,10 +27,10 @@ assets\fonts\Meslo\MesloLGMNerdFont-Italic.ttf
 assets\fonts\Meslo\MesloLGMNerdFont-BoldItalic.ttf
 ```
 
-如果新机器还没有 Neovim，可以顺手安装：
+如果不想安装 Neovim：
 
 ```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.ps1 -InstallNeovim
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.ps1 -SkipNeovim
 ```
 
 如果不想安装 zoxide：
