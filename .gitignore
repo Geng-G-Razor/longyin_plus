@@ -12,6 +12,7 @@ electron-app/release/
 electron-app/updater-dist/
 mod-src/bin/
 mod-src/*/bin/
+mod-src/*/obj/
 mod-src/*/artifacts/
 updater-app/**/bin/
 updater-app/**/obj/
@@ -34,3 +35,5 @@ mod-src/LongYinStaminaLock/LongYinStaminaLock.dll
 # OS/editor noise
 .DS_Store
 Thumbs.db
+.idea/
+*.DotSettings.user
