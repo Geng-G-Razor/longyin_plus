@@ -364,6 +364,8 @@ if ($statusPorcelain -and -not $AllowDirty) {
   throw "工作树不是干净状态。请先提交或清理改动，再执行 git push ota。"
 }
 
+$payloadSync = $null
+
 if (-not $SkipBuild) {
   Assert-BuildPrereqs
   $payloadSync = Sync-LongYinStaminaLockPayload
