@@ -1,6 +1,5 @@
 param(
   [string]$FontPath = "",
-  [string]$Theme = "clean-detailed",
   [switch]$InstallNeovim
 )
 
@@ -94,7 +93,7 @@ function Install-Fonts {
 }
 
 function Update-Profile {
-  $profilePath = $PROFILE.CurrentUserAllHosts
+  $profilePath = $PROFILE
   $profileDir = Split-Path $profilePath
   New-Item -ItemType Directory -Force -Path $profileDir | Out-Null
 
@@ -112,14 +111,8 @@ function Update-Profile {
 
   $block = @"
 $start
-`$themePath = Join-Path `$env:POSH_THEMES_PATH "$Theme.omp.json"
 if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
-  if (Test-Path `$themePath) {
-    oh-my-posh init pwsh --config `$themePath | Invoke-Expression
-  }
-  else {
-    oh-my-posh init pwsh | Invoke-Expression
-  }
+  oh-my-posh init pwsh | Invoke-Expression
 }
 
 Set-PSReadLineOption -PredictionSource History
@@ -133,8 +126,8 @@ Set-PSReadLineKeyHandler -Chord Ctrl+w -Function BackwardKillWord
 Set-PSReadLineKeyHandler -Chord Ctrl+a -Function BeginningOfLine
 Set-PSReadLineKeyHandler -Chord Ctrl+e -Function EndOfLine
 
-function ep { nvim `$PROFILE.CurrentUserAllHosts }
-function rp { . `$PROFILE.CurrentUserAllHosts }
+function vz { nvim `$PROFILE }
+function sz { . `$PROFILE }
 
 function gst { git status @args }
 function gco { git checkout @args }

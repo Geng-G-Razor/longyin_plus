@@ -37,13 +37,13 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.p
 pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.ps1 -FontPath "C:\Users\razor\Downloads\Meslo"
 ```
 
-脚本会写入：
+脚本会写入当前 PowerShell 的 profile：
 
 ```powershell
-$PROFILE.CurrentUserAllHosts
+$PROFILE
 ```
 
-这样 Windows Terminal 里的 PowerShell 7 和其他 PowerShell host 更容易共享同一份配置。
+如果你在 PowerShell 7 里运行脚本，它会配置 PowerShell 7 的 `$PROFILE`。
 
 ## Windows Terminal 字体设置
 
@@ -70,8 +70,8 @@ CaskaydiaCove Nerd Font
 脚本会加入这些功能：
 
 ```powershell
-ep   # 用 nvim 编辑 PowerShell profile
-rp   # 重新加载 PowerShell profile
+vz   # 用 nvim 编辑 PowerShell profile
+sz   # 重新加载 PowerShell profile
 
 gst  # git status
 gco  # git checkout
@@ -108,25 +108,25 @@ Ctrl+E     跳到行尾
 以后编辑配置：
 
 ```powershell
-ep
+vz
 ```
 
 或者直接：
 
 ```powershell
-nvim $PROFILE.CurrentUserAllHosts
+nvim $PROFILE
 ```
 
 改完后重新加载：
 
 ```powershell
-rp
+sz
 ```
 
 或者：
 
 ```powershell
-. $PROFILE.CurrentUserAllHosts
+. $PROFILE
 ```
 
 ## 排查
