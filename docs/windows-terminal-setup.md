@@ -3,6 +3,7 @@
 这份流程用于在新的 Windows 11 机器或 Parallels Windows 11 ARM 虚拟机里快速恢复当前终端体验：
 
 - 安装 Oh My Posh
+- 安装 zoxide
 - 安装已经下载好的 Nerd Font
 - 配置 PowerShell `$PROFILE`
 - 添加常用 Git alias
@@ -29,6 +30,12 @@ assets\fonts\Meslo\MesloLGMNerdFont-BoldItalic.ttf
 
 ```powershell
 pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.ps1 -InstallNeovim
+```
+
+如果不想安装 zoxide：
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\setup-windows-terminal.ps1 -SkipZoxide
 ```
 
 如果你想改用其他字体，也可以手动传 zip 或目录：
@@ -101,6 +108,15 @@ Ctrl+K     删除光标后内容
 Ctrl+W     删除前一个单词
 Ctrl+A     跳到行首
 Ctrl+E     跳到行尾
+```
+
+zoxide 用法：
+
+```powershell
+cd C:\Users\razor\longyin_plus
+cd C:\Users\razor\Downloads
+z longyin
+z downloads
 ```
 
 ## 手动编辑

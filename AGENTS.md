@@ -49,6 +49,45 @@ The Electron OTA packaging flow is:
 
 GitHub Release body is the single source of truth for OTA update history. The Electron app reads release body text to display update logs.
 
+## Windows ARM ZIP Build Workflow
+
+The Windows 11 ARM virtual machine may be used only to generate the Electron release ZIP. Do not assume the game is installed there.
+
+For ZIP generation on that VM:
+
+- use PowerShell 7 when possible
+- use `npm`, not `pnpm`, because `electron-app` uses `package-lock.json`
+- run `npm ci` only when dependencies need to be restored
+- run `npm run typecheck` and `npm run build` from `electron-app`
+- expect the generated assets under `electron-app\release`
+
+Do not require `LongYinLiZhiZhuan.exe` or a Steam game installation when the user only wants to generate the release ZIP.
+
+Do not run the full `git-push-ota.ps1` publishing flow for a ZIP-only task. If local OTA asset validation is explicitly needed without a game install, use `.\git-push-ota.ps1 -SkipBuild -DryRun`.
+
+## Local Electron Preview
+
+For quickly checking the packaged launcher without manually extracting the ZIP, use:
+
+- `npm run build:unpacked` to generate `electron-app\release\win-unpacked`
+- `npm run preview:unpacked` to build and launch `release\win-unpacked\LongYinProMax.exe`
+
+Use the normal `npm run build` path for official ZIP artifacts.
+
+## Windows Terminal Bootstrap
+
+Reusable Windows terminal setup lives in:
+
+- `scripts\setup-windows-terminal.ps1`
+- `docs\windows-terminal-setup.md`
+- `assets\fonts\Meslo\`
+
+The script installs/configures Oh My Posh, zoxide, MesloLGM Nerd Font, common Git aliases, PSReadLine history search, and profile helpers. The preferred profile helpers are:
+
+- `vz` to edit `$PROFILE` with `nvim`
+- `sz` to reload `$PROFILE`
+- `z` for zoxide directory jumping
+
 ## Reserved Publish Commands
 
 Treat `git push ota` and `publish update` as the same command.

@@ -1,6 +1,7 @@
 param(
   [string]$FontPath = "",
-  [switch]$InstallNeovim
+  [switch]$InstallNeovim,
+  [switch]$SkipZoxide
 )
 
 $ErrorActionPreference = "Stop"
@@ -45,6 +46,24 @@ function Install-Neovim {
 
   Write-Step "安装 Neovim"
   winget install --id Neovim.Neovim --source winget --accept-package-agreements --accept-source-agreements
+}
+
+function Install-Zoxide {
+  if ($SkipZoxide) {
+    return
+  }
+
+  if (Test-Command "zoxide") {
+    Write-Step "zoxide 已安装。"
+    return
+  }
+
+  if (-not (Test-Command "winget")) {
+    throw "未找到 winget。请先安装 App Installer，或手动安装 zoxide。"
+  }
+
+  Write-Step "安装 zoxide"
+  winget install --id ajeetdsouza.zoxide --source winget --accept-package-agreements --accept-source-agreements
 }
 
 function Install-Fonts {
@@ -115,6 +134,10 @@ if (Get-Command oh-my-posh -ErrorAction SilentlyContinue) {
   oh-my-posh init pwsh | Invoke-Expression
 }
 
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+  Invoke-Expression (& { (zoxide init powershell | Out-String) })
+}
+
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle InlineView
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
@@ -160,6 +183,7 @@ $end
 
 Install-OhMyPosh
 Install-Neovim
+Install-Zoxide
 Install-Fonts -Path $FontPath
 Update-Profile
 
